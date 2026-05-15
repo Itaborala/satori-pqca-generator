@@ -1,0 +1,6 @@
+[submodule "qcircuit-relayer"]
+	path = qcircuit-relayer
+	url = https://github.com/Itaborala/qcircuit-relayer.git
+[submodule "partitioned-quantum-cellular-automata"]
+	path = partitioned-quantum-cellular-automata
+	url = https://github.com/Itaborala/partitioned-quantum-cellular-automata.git
