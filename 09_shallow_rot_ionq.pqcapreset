@@ -1,0 +1,33 @@
+{
+  "name": "09_shallow_rot_ionq",
+  "dimensions": 2,
+  "iterations": 8,
+  "system_size": [
+    4,
+    6
+  ],
+  "partitions": [
+    {
+      "shape": [
+        1,
+        2
+      ],
+      "shift": 0,
+      "file": "ry_pair2.qasm"
+    },
+    {
+      "shape": [
+        1,
+        3
+      ],
+      "shift": 0,
+      "file": "ry_sweep3.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    10
+  ],
+  "mode": "unitary-batched",
+  "backend": "aer.statevector",
+  "shots": 128
+}

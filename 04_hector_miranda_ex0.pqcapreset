@@ -1,0 +1,33 @@
+{
+  "name": "04_hector_miranda_ex0",
+  "dimensions": 2,
+  "iterations": 32,
+  "system_size": [
+    4,
+    6
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 0,
+      "file": "ex0_x.qasm"
+    },
+    {
+      "shape": [
+        1,
+        3
+      ],
+      "shift": 0,
+      "file": "ex0_y.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    10
+  ],
+  "mode": "unitary-batched",
+  "backend": "aer.stabilizer",
+  "shots": 128
+}

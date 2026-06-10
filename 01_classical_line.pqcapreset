@@ -1,0 +1,33 @@
+{
+  "name": "01_classical_line",
+  "dimensions": 2,
+  "iterations": 20,
+  "system_size": [
+    16,
+    1
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 0,
+      "file": "cx2.qasm"
+    },
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 1,
+      "file": "cx2.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    3
+  ],
+  "mode": "unitary-batched",
+  "backend": "aer.stabilizer",
+  "shots": 128
+}
