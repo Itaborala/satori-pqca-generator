@@ -1,0 +1,95 @@
+{
+  "name": "06_clifford_qca_fractal",
+  "dimensions": 2,
+  "iterations": 8,
+  "system_size": [
+    4,
+    4
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 0,
+      "file": "ex0_x.qasm"
+    },
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 4,
+      "file": "ex0_x.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    10
+  ],
+  "mode": "unitary-batched",
+  "backend": "ionq.simulator",
+  "shots": 128,
+  "initial_state": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+  ],
+  "steps": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "jobs": [
+    {
+      "t": 1,
+      "job_id": "019eb1c1-cc84-749d-b950-0cf3e12fc8cb"
+    },
+    {
+      "t": 2,
+      "job_id": "019eb1c1-ce1e-764f-8d4a-620e4130bded"
+    },
+    {
+      "t": 3,
+      "job_id": "019eb1c1-cf8c-706d-a2da-e88994c3ab77"
+    },
+    {
+      "t": 4,
+      "job_id": "019eb1c1-d100-716d-a576-d91ee14058d1"
+    },
+    {
+      "t": 5,
+      "job_id": "019eb1c1-d304-735f-98c0-49eae5aa2a0e"
+    },
+    {
+      "t": 6,
+      "job_id": "019eb1c1-d553-7348-b314-952d4b421774"
+    },
+    {
+      "t": 7,
+      "job_id": "019eb1c1-d756-7702-9cb6-5fe1aef04436"
+    },
+    {
+      "t": 8,
+      "job_id": "019eb1c1-d9ce-713f-bd1f-ba5e73422f16"
+    }
+  ]
+}
