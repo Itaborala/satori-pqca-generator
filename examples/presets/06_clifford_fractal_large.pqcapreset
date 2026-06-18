@@ -1,0 +1,33 @@
+{
+  "name": "06_clifford_fractal_large",
+  "dimensions": 2,
+  "iterations": 8,
+  "system_size": [
+    16,
+    16
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 0,
+      "file": "ex0_x.qasm"
+    },
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 4,
+      "file": "ex0_x.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    40
+  ],
+  "mode": "unitary-batched",
+  "backend": "aer.stabilizer",
+  "shots": 128
+}

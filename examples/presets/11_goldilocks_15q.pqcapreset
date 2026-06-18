@@ -1,0 +1,42 @@
+{
+  "name": "goldilocks_15q",
+  "dimensions": 2,
+  "iterations": 32,
+  "system_size": [
+    36,
+    1
+  ],
+  "partitions": [
+    {
+      "shape": [
+        3,
+        1
+      ],
+      "shift": 0,
+      "file": "gold3_pi7.qasm"
+    },
+    {
+      "shape": [
+        3,
+        1
+      ],
+      "shift": 1,
+      "file": "gold3_pi7.qasm"
+    },
+    {
+      "shape": [
+        3,
+        1
+      ],
+      "shift": 2,
+      "file": "gold3_pi7.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    7
+  ],
+  "mode": "unitary-batched",
+  "backend": "ionq.forte-enterprise-1",
+  "shots": 32,
+  "project_name": "qpattr"
+}

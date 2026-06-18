@@ -1,0 +1,34 @@
+{
+  "name": "clifford_fractal_4x4-hw",
+  "dimensions": 2,
+  "iterations": 32,
+  "system_size": [
+    6,
+    6
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 0,
+      "file": "ex0_x.qasm"
+    },
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 4,
+      "file": "ex0_x.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    10
+  ],
+  "mode": "unitary-batched",
+  "backend": "ionq.qpu.forte-enterprise-1",
+  "shots": 32,
+  "project_name": "qpattr"
+}

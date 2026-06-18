@@ -1,0 +1,33 @@
+{
+  "name": "05_clifford_oscillator",
+  "dimensions": 2,
+  "iterations": 100,
+  "system_size": [
+    6,
+    6
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        2
+      ],
+      "shift": 0,
+      "file": "../circuits/cyc4.qasm"
+    },
+    {
+      "shape": [
+        2,
+        2
+      ],
+      "shift": 7,
+      "file": "../circuits/cyc4.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    41
+  ],
+  "mode": "unitary-batched",
+  "backend": "aer.stabilizer",
+  "shots": 128
+}

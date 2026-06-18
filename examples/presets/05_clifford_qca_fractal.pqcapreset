@@ -1,0 +1,33 @@
+{
+  "name": "05_clifford_qca_fractal",
+  "dimensions": 2,
+  "iterations": 32,
+  "system_size": [
+    4,
+    4
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 0,
+      "file": "ex0_x.qasm"
+    },
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 4,
+      "file": "ex0_x.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    10
+  ],
+  "mode": "unitary-batched",
+  "backend": "aer.stabilizer",
+  "shots": 128
+}

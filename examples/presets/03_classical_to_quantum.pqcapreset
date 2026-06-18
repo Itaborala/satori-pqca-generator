@@ -1,0 +1,33 @@
+{
+  "name": "03_classical_to_quantum",
+  "dimensions": 2,
+  "iterations": 16,
+  "system_size": [
+    16,
+    16
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        2
+      ],
+      "shift": 0,
+      "file": "../circuits/ghz4.qasm"
+    },
+    {
+      "shape": [
+        2,
+        2
+      ],
+      "shift": 5,
+      "file": "../circuits/ghz4.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    40
+  ],
+  "mode": "unitary",
+  "backend": "aer.stabilizer",
+  "shots": 128
+}

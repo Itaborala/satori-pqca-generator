@@ -1,0 +1,33 @@
+{
+  "name": "07_nonclifford_pivot",
+  "dimensions": 2,
+  "iterations": 16,
+  "system_size": [
+    4,
+    4
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        2
+      ],
+      "shift": 0,
+      "file": "rot_fan4.qasm"
+    },
+    {
+      "shape": [
+        2,
+        2
+      ],
+      "shift": 5,
+      "file": "rot_fan4.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    10
+  ],
+  "mode": "unitary-batched",
+  "backend": "aer.statevector",
+  "shots": 128
+}
