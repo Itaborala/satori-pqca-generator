@@ -29,7 +29,7 @@ PARTITIONS = [                       # one UpdateFrame per partition
 ]
 INITIAL_INDEXES = [10]               # flat qubit indices initialised to |1>
 ITERATIONS = 32
-OUT_DIR = "data-tests"
+OUT_DIR = "data"
 # ====================================================================
 
 # --- cell circuits, one per partition; qubit count must equal prod(shape) ---
@@ -81,7 +81,8 @@ dataset = {
 for _ in range(ITERATIONS):
     dataset["frames"].append(next(automaton))
 
-Path(OUT_DIR).mkdir(parents=True, exist_ok=True)
+out_dir = Path(__file__).parent / OUT_DIR
+Path(out_dir).mkdir(parents=True, exist_ok=True)
 out = Path(OUT_DIR) / f"{NAME}.json"
 out.write_text(json.dumps(dataset, indent=2))
 print(f"wrote {ITERATIONS} steps to {out}")

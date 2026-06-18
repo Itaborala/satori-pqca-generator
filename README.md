@@ -214,4 +214,7 @@ more evolution step.
 
 ## Examples
 
-A curated set of worked configurations lives in a separate examples file. *(To be added.)*
+A curated set of worked configurations lives in the `examples/presets` folder. 
+You can simply test them by passing the relative path of the preset to `--config`
+
+
