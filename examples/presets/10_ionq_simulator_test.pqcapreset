@@ -1,9 +1,9 @@
 {
-  "name": "shallow_rot_pi8",
+  "name": "10_clifford_ionq",
   "dimensions": 2,
   "iterations": 8,
   "system_size": [
-    6,
+    4,
     6
   ],
   "partitions": [
@@ -13,7 +13,7 @@
         1
       ],
       "shift": 0,
-      "file": "ry_pair2_pi8.qasm"
+      "file": "../circuits/ex0_x.qasm"
     },
     {
       "shape": [
@@ -21,14 +21,15 @@
         3
       ],
       "shift": 0,
-      "file": "ry_sweep3_pi8.qasm"
+      "file": "../circuits/ex0_y.qasm"
     }
   ],
   "initial_state_indexes": [
     10
   ],
   "mode": "unitary-batched",
-  "backend": "ionq.forte-enterprise-1",
-  "shots": 32,
+  "backend": "ionq.simulator",
+  "noise_model": "forte-enterprise-1",
   "project_name": "qpattr",
+  "shots": 128
 }

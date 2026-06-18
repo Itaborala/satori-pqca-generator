@@ -13,7 +13,7 @@
         1
       ],
       "shift": 0,
-      "file": "ex0_x.qasm"
+      "file": "../circuits/ex0_x.qasm"
     },
     {
       "shape": [
@@ -21,7 +21,7 @@
         1
       ],
       "shift": 4,
-      "file": "ex0_x.qasm"
+      "file": "../circuits/ex0_x.qasm"
     }
   ],
   "initial_state_indexes": [

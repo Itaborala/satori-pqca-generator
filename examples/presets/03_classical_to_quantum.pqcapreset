@@ -3,8 +3,8 @@
   "dimensions": 2,
   "iterations": 16,
   "system_size": [
-    16,
-    16
+    10,
+    10
   ],
   "partitions": [
     {

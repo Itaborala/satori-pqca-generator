@@ -3,9 +3,9 @@
 # Run the synchronous (Aer) generator, visualize the newest dataset it wrote,
 # and open the result.
 #
-#   ./run_and_show.sh                 # uses ex0.json
-#   ./run_and_show.sh myrule.json     # a different Aer config
-#   ./run_and_show.sh myrule.json 3   # ... at 3 fps (slower GIF)
+#   ./simulate_and_show.sh                 # uses ex0.json
+#   ./simulate_and_show.sh myrule.json     # a different Aer config
+#   ./simulate_and_show.sh myrule.json 3   # ... at 3 fps (slower GIF)
 #
 # OUTDIR must match the generator's OUT_DIR.
 
@@ -16,7 +16,7 @@ FPS="${2:-}"
 OUTDIR="${OUTDIR:-data}"
 
 echo ">> run: $CONFIG (outdir: $OUTDIR)"
-python generate-pqca-dataset.py run --config "$CONFIG" --outdir "$OUTDIR"
+python generate-pqca-dataset.py run --config "$CONFIG" --out-dir "$OUTDIR"
 
 # newest dataset, excluding manifests
 DATASET=$(ls -t "$OUTDIR"/*.json 2>/dev/null | grep -v '\_manifest\.json$' | head -n1 || true)
