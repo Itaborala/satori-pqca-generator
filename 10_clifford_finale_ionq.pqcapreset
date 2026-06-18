@@ -1,0 +1,33 @@
+{
+  "name": "10_clifford_finale_ionq",
+  "dimensions": 2,
+  "iterations": 8,
+  "system_size": [
+    4,
+    6
+  ],
+  "partitions": [
+    {
+      "shape": [
+        2,
+        1
+      ],
+      "shift": 0,
+      "file": "ex0_x.qasm"
+    },
+    {
+      "shape": [
+        1,
+        3
+      ],
+      "shift": 0,
+      "file": "ex0_y.qasm"
+    }
+  ],
+  "initial_state_indexes": [
+    10
+  ],
+  "mode": "unitary-batched",
+  "backend": "aer.statevector",
+  "shots": 128
+}
