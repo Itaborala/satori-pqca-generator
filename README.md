@@ -218,3 +218,9 @@ A curated set of worked configurations lives in the `examples/presets` folder.
 You can simply test them by passing the relative path of the preset to `--config`
 
 
+# Acknowledgements
+This repository is part of the [Quantum Patterns](https://qollab.xyz/u/cephasteom/quantum-patterns) project by Cephas Teom and Itaborala.
+
+This project builds on top of previous work - [`pqca` Python package](https://github.com/hmillerbakewell/partitioned-quantum-cellular-automata) (Package that generates tesselated circuits for PQCA applications).
+
+The effort of creating this repository was made possible thanks to support from Qollab and IonQ through the [Quantum Creative Challenge](https://qollab.xyz/rfp) of Spring 2026.
