@@ -44,6 +44,11 @@ thanks to the IonQ API.
 ```bash
 pip install qiskit qiskit-aer qiskit-ionq numpy tqdm keyring
 ```
+Install the local `pqca` version:
+
+```bash
+cd partitioned-quantum-cellular-automata && pip install -e .
+```
 
 ### IonQ credentials
 
