@@ -3,9 +3,9 @@
 # Run the synchronous (Aer) generator, visualize the newest dataset it wrote,
 # and open the result.
 #
-#   ./run_and_show.sh                 # uses ex0.json
-#   ./run_and_show.sh myrule.json     # a different Aer config
-#   ./run_and_show.sh myrule.json 3   # ... at 3 fps (slower GIF)
+#   ./simulate_and_show.sh                 # uses ex0.json
+#   ./simulate_and_show.sh myrule.json     # a different Aer config
+#   ./simulate_and_show.sh myrule.json 3   # ... at 3 fps (slower GIF)
 #
 # OUTDIR must match the generator's OUT_DIR.
 

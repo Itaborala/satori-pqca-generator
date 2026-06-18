@@ -1,11 +1,7 @@
 """
-PQCA quickstart -- a partitioned quantum cellular automaton in a dozen lines.
+PQCA quickstart -- a partitioned quantum cellular automaton in a couple lines.
 
 Edit the PARAMETERS block, run the file, watch the state evolve.
-No backend or account needed: the default Unitary mode evolves a statevector
-locally inside Qiskit and samples one state per step without collapsing it.
-
-    python 01_quickstart.py
 """
 
 import qiskit

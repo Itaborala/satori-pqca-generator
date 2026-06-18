@@ -250,9 +250,16 @@ def estimate_cost(config: dict, steps_spec=None, for_backend=None, base_dir: Pat
         print("(no USD figure: simulator is free, or estimate_job is unavailable in this "
               "qiskit-ionq version -- the 2Q gate count is your cost proxy)")
 
+def confirm_qpu_spend(config:dict):
+    if config['backend'].startswith('ionq.qpu') and input(
+            f"WARNING: You are about to submit jobs to a real IonQ QPU ({config['backend']}). confirm? [y/N] ").strip().lower() != 'y':
+        sys.exit("Submission cancelled")
+
+
 
 # ------------------------------- submit -------------------------------------
 def submit_evolution(config: dict, steps_spec=None, out_dir: Path=None, base_dir: Path=None):
+    confirm_qpu_spend(config)
     engine = connect_engine(config)
     evo, _ = build_evolution(config, base_dir=base_dir)
     iterations = int(config['iterations'])
@@ -345,6 +352,7 @@ def collect_results(config: dict, out_dir: Path, base_dir: Path):
 
 # --------------------------------- run --------------------------------------
 def run_evolution(config: dict, out_dir: Path, base_dir: Path):
+    confirm_qpu_spend(config)
     engine = connect_engine(config)
     shots = int(config.get('shots', DEFAULT_SHOTS))
 
