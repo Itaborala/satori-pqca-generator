@@ -1,5 +1,5 @@
 {
-  "name": "05_clifford_oscillator",
+  "name": "04_clifford_oscillator",
   "dimensions": 2,
   "iterations": 100,
   "system_size": [
@@ -25,7 +25,7 @@
     }
   ],
   "initial_state_indexes": [
-    41
+    13
   ],
   "mode": "unitary-batched",
   "backend": "aer.stabilizer",

@@ -16,7 +16,7 @@ FPS="${2:-}"
 OUTDIR="${OUTDIR:-data}"
 
 echo ">> run: $CONFIG (outdir: $OUTDIR)"
-python generate-pqca-dataset.py run --config "$CONFIG" --outdir "$OUTDIR"
+python generate-pqca-dataset.py run --config "$CONFIG" --out-dir "$OUTDIR"
 
 # newest dataset, excluding manifests
 DATASET=$(ls -t "$OUTDIR"/*.json 2>/dev/null | grep -v '\_manifest\.json$' | head -n1 || true)
