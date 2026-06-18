@@ -34,6 +34,15 @@ thanks to the IonQ API.
 
 ## Requirements
 
+### Git
+
+This repository depends on two git submodules. Hence, use the `--recurse-submodules` flag while cloning or pulling this repository:
+
+```bash
+git clone https://github.com/Itaborala/satori-pqca-generator.git --recurse-submodules
+```
+### Python
+
 - Python 3.11+
 - `qiskit` (2.4+), `qiskit-aer`, `qiskit-ionq`
 - `numpy`, `tqdm`, `keyring`
