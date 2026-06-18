@@ -13,7 +13,7 @@
         1
       ],
       "shift": 0,
-      "file": "gold3.qasm"
+      "file": "../circuits/gold3.qasm"
     },
     {
       "shape": [
@@ -21,7 +21,7 @@
         1
       ],
       "shift": 1,
-      "file": "gold3.qasm"
+      "file": "../circuits/gold3.qasm"
     },
     {
       "shape": [
@@ -29,7 +29,7 @@
         1
       ],
       "shift": 2,
-      "file": "gold3.qasm"
+      "file": "../circuits/gold3.qasm"
     }
   ],
   "initial_state_indexes": [

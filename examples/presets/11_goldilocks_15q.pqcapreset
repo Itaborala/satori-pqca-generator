@@ -13,7 +13,7 @@
         1
       ],
       "shift": 0,
-      "file": "gold3_pi7.qasm"
+      "file": "../circuits/gold3_pi7.qasm"
     },
     {
       "shape": [
@@ -21,7 +21,7 @@
         1
       ],
       "shift": 1,
-      "file": "gold3_pi7.qasm"
+      "file": "../circuits/gold3_pi7.qasm"
     },
     {
       "shape": [
@@ -29,14 +29,14 @@
         1
       ],
       "shift": 2,
-      "file": "gold3_pi7.qasm"
+      "file": "../circuits/gold3_pi7.qasm"
     }
   ],
   "initial_state_indexes": [
     7
   ],
   "mode": "unitary-batched",
-  "backend": "ionq.forte-enterprise-1",
+  "backend": "ionq.qpu.forte-enterprise-1",
   "shots": 32,
   "project_name": "qpattr"
 }

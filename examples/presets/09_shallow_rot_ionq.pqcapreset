@@ -13,7 +13,7 @@
         2
       ],
       "shift": 0,
-      "file": "ry_pair2.qasm"
+      "file": "../circuits/ry_pair2.qasm"
     },
     {
       "shape": [
@@ -21,7 +21,7 @@
         3
       ],
       "shift": 0,
-      "file": "ry_sweep3.qasm"
+      "file": "../circuits/ry_sweep3.qasm"
     }
   ],
   "initial_state_indexes": [

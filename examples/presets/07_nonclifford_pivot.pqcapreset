@@ -13,7 +13,7 @@
         2
       ],
       "shift": 0,
-      "file": "rot_fan4.qasm"
+      "file": "../circuits/rot_fan4.qasm"
     },
     {
       "shape": [
@@ -21,7 +21,7 @@
         2
       ],
       "shift": 5,
-      "file": "rot_fan4.qasm"
+      "file": "../circuits/rot_fan4.qasm"
     }
   ],
   "initial_state_indexes": [
