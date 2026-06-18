@@ -1,34 +1,33 @@
 {
-  "name": "02_first_2d_coupling",
+  "name": "03_classical_to_quantum",
   "dimensions": 2,
-  "iterations": 20,
+  "iterations": 16,
   "system_size": [
-    3,
-    4
+    16,
+    16
   ],
   "partitions": [
     {
       "shape": [
-        1,
+        2,
         2
       ],
       "shift": 0,
-      "file": "cx2.qasm"
+      "file": "../circuits/ghz4.qasm"
     },
     {
       "shape": [
-        3,
-        1
+        2,
+        2
       ],
-      "shift": 0,
-      "file": "cx_sweep3.qasm"
+      "shift": 5,
+      "file": "../circuits/ghz4.qasm"
     }
   ],
   "initial_state_indexes": [
-    5,
-    6
+    40
   ],
-  "mode": "unitary-batched",
+  "mode": "unitary",
   "backend": "aer.stabilizer",
   "shots": 128
 }

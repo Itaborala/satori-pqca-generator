@@ -1,31 +1,31 @@
 {
-  "name": "04_hector_miranda_ex0",
+  "name": "05_clifford_oscillator",
   "dimensions": 2,
-  "iterations": 32,
+  "iterations": 100,
   "system_size": [
-    4,
+    6,
     6
   ],
   "partitions": [
     {
       "shape": [
         2,
-        1
+        2
       ],
       "shift": 0,
-      "file": "ex0_x.qasm"
+      "file": "../circuits/cyc4.qasm"
     },
     {
       "shape": [
-        1,
-        3
+        2,
+        2
       ],
-      "shift": 0,
-      "file": "ex0_y.qasm"
+      "shift": 7,
+      "file": "../circuits/cyc4.qasm"
     }
   ],
   "initial_state_indexes": [
-    10
+    41
   ],
   "mode": "unitary-batched",
   "backend": "aer.stabilizer",

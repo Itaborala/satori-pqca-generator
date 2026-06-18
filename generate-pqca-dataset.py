@@ -45,10 +45,10 @@ import tqdm
 import os
 from pathlib import Path
 
-sys.path.append('./qcircuit-relayer')
+sys.path.append(str(Path(__file__).parent / "qcircuit-relayer"))
 from qcircuit_relayer import PlatformLibrary, JobType
 
-OUT_DIR = Path("data-hardware")
+DEFAULT_OUT_DIR = Path("data")
 DONE = {"done", "jobstatus.done"}
 FAILED = {"error", "cancelled"}
 DEFAULT_SHOTS = 128
@@ -103,11 +103,12 @@ def build_initial_state(config: dict) -> list[int]:
     return initial_state.tolist()
 
 
-def build_frames(config: dict) -> list:
+def build_frames(config: dict, base_dir: Path) -> list:
     frames = []
     for partition in config['partitions']:
         shape = partition['shape']
-        with open(partition['file'], 'r') as f:
+        qasm_path = (base_dir / partition['file']).resolve()
+        with open(qasm_path, 'r') as f:
             circuit = qasm3.loads(f.read())
         if circuit.num_qubits != int(np.prod(shape)):
             raise ValueError(f"Partition circuit qubits {circuit.num_qubits} does not match partition size {shape}")
@@ -119,9 +120,9 @@ def build_frames(config: dict) -> list:
     return frames
 
 
-def build_evolution(config: dict, backend=None):
+def build_evolution(config: dict, backend=None, base_dir: Path = Path(".")):
     initial_state = build_initial_state(config)
-    frames = build_frames(config)
+    frames = build_frames(config, base_dir)
     shots = int(config.get('shots', DEFAULT_SHOTS))
     evo = pqca.BatchedEvolutionPQCA(initial_state, frames, backend=backend, shots=shots)
     steps = list(range(1, int(config['iterations']) + 1))
@@ -149,19 +150,19 @@ def submit_kwargs(config: dict):
 
 
 # ------------------------------- paths --------------------------------------
-def manifest_path(config: dict):
-    return OUT_DIR / f"{config['name']}_manifest.json"
+def manifest_path(config: dict, out_dir: Path):
+    return out_dir / f"{config['name']}_manifest.json"
 
 
-def dataset_path(config: dict):
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
-    base = OUT_DIR / f"{config['name']}.json"
+def dataset_path(config: dict, out_dir: Path):
+    out_dir.mkdir(parents=True, exist_ok=True)
+    base = out_dir / f"{config['name']}.json"
     if not base.exists():
         return base
     i = 1
-    while (OUT_DIR / f"{config['name']}_{i}.json").exists():
+    while (out_dir / f"{config['name']}_{i}.json").exists():
         i += 1
-    return OUT_DIR / f"{config['name']}_{i}.json"
+    return out_dir / f"{config['name']}_{i}.json"
 
 
 def write_json(path: Path, data):
@@ -218,8 +219,8 @@ def ionq_estimate_usd(engine, qubits, oneq, twoq, shots, backend_name):
     return None
 
 
-def estimate_cost(config: dict, steps_spec=None, for_backend=None):
-    evo, _ = build_evolution(config)
+def estimate_cost(config: dict, steps_spec=None, for_backend=None, base_dir: Path =None):
+    evo, _ = build_evolution(config, base_dir=base_dir)
     iterations = int(config['iterations'])
     steps = parse_steps(steps_spec, iterations)
     if not steps:
@@ -251,9 +252,9 @@ def estimate_cost(config: dict, steps_spec=None, for_backend=None):
 
 
 # ------------------------------- submit -------------------------------------
-def submit_evolution(config: dict, steps_spec=None):
+def submit_evolution(config: dict, steps_spec=None, out_dir: Path=None, base_dir: Path=None):
     engine = connect_engine(config)
-    evo, _ = build_evolution(config)
+    evo, _ = build_evolution(config, base_dir=base_dir)
     iterations = int(config['iterations'])
     all_steps = list(range(1, iterations + 1))
     steps = parse_steps(steps_spec, iterations)
@@ -266,7 +267,7 @@ def submit_evolution(config: dict, steps_spec=None):
     circuits = evo.build_circuits(steps, measure=True)
     kwargs = submit_kwargs(config)
 
-    mpath = manifest_path(config)
+    mpath = manifest_path(config, out_dir)
     if mpath.exists():
         manifest = load_json(mpath)                  # merge into the existing manifest
     else:
@@ -297,8 +298,8 @@ def submit_evolution(config: dict, steps_spec=None):
 
 
 # ------------------------------- collect ------------------------------------
-def collect_results(config: dict):
-    mpath = manifest_path(config)
+def collect_results(config: dict, out_dir: Path, base_dir: Path):
+    mpath = manifest_path(config, out_dir)
     if not mpath.exists():
         sys.exit(f"Manifest file not found: {mpath}. Run 'submit' first.")
     manifest = load_json(mpath)
@@ -332,18 +333,18 @@ def collect_results(config: dict):
         print("Dataset incomplete; submit/collect the remaining steps later.")
         return None
 
-    evo, _ = build_evolution(config)
+    evo, _ = build_evolution(config, base_dir=base_dir)
     evo.ingest(all_steps, [done[t] for t in all_steps])
     frames = [list(manifest["initial_state"])] + [next(evo) for _ in all_steps]
 
-    out = dataset_path(config)
+    out = dataset_path(config, out_dir)
     write_json(out, assemble_dataset(config, manifest["initial_state"], frames))
     print(f"Complete -- dataset written to {out}")
     return True
 
 
 # --------------------------------- run --------------------------------------
-def run_evolution(config: dict):
+def run_evolution(config: dict, out_dir: Path, base_dir: Path):
     engine = connect_engine(config)
     shots = int(config.get('shots', DEFAULT_SHOTS))
 
@@ -352,7 +353,7 @@ def run_evolution(config: dict):
         job.result()
         return [job.memory(i) for i in range(len(circuits))]
 
-    evo, steps = build_evolution(config, backend=run_aer_pqca_batch)
+    evo, steps = build_evolution(config, backend=run_aer_pqca_batch, base_dir=base_dir)
     if evo._step_circuit.num_qubits <= 30:
         print(evo._step_circuit.draw(output="text"))
     evo.run(steps)
@@ -360,7 +361,7 @@ def run_evolution(config: dict):
     initial = list(evo.initial_state)
     frames = [initial] + [next(evo) for _ in tqdm.tqdm(steps, desc="Running evolution")]
 
-    out = dataset_path(config)
+    out = dataset_path(config, out_dir)
     write_json(out, assemble_dataset(config, initial, frames))
     print(f"Dataset assembled and written to {out}")
 
@@ -368,7 +369,7 @@ def run_evolution(config: dict):
 # --------------------------------- cli --------------------------------------
 if __name__ == '__main__':
     descr = ("Generate Datasets of PQCA routines and structure the metadata for using "
-             "with Satori/pqca. See more at https://satori.cephasteom.co.uk/pqca/")
+             "with Satori/pqca. See more at https://pqca.cephasteom.co.uk/")
     p = argparse.ArgumentParser(description=descr)
     p.add_argument("command", choices=['estimate', 'submit', 'collect', 'run'])
     p.add_argument('--config', type=str, required=True,
@@ -379,19 +380,24 @@ if __name__ == '__main__':
                    help="estimate: IonQ backend to price against, e.g. qpu.forte-1")
     p.add_argument("--poll", type=int, default=0,
                    help="collect: poll every N seconds until complete (default: 0, check once)")
+    p.add_argument('--out-dir', type=Path, default=DEFAULT_OUT_DIR,
+                   help="directory to write manifests (default: data/). "
+                        "submit and collect must use the same out-dir to find the manifest and dataset.")
     args = p.parse_args()
 
     config = load_json(args.config)
+    out_dir = args.out_dir
+    base_dir = Path(args.config).parent
 
     if args.command == 'estimate':
         estimate_cost(config, args.steps, args.for_backend)
     elif args.command == 'submit':
-        submit_evolution(config, args.steps)
+        submit_evolution(config, args.steps, out_dir, base_dir)
     elif args.command == 'run':
-        run_evolution(config)
+        run_evolution(config, out_dir, base_dir)
     else:  # collect
         if args.poll > 0:
-            while collect_results(config) is None:
+            while collect_results(config, out_dir, base_dir) is None:
                 time.sleep(args.poll)
         else:
-            collect_results(config)
+            collect_results(config, out_dir, base_dir)

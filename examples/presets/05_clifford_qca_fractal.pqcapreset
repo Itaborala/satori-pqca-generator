@@ -1,31 +1,31 @@
 {
-  "name": "05_clifford_oscillator",
+  "name": "05_clifford_qca_fractal",
   "dimensions": 2,
-  "iterations": 100,
+  "iterations": 32,
   "system_size": [
-    16,
-    16
+    4,
+    4
   ],
   "partitions": [
     {
       "shape": [
         2,
-        2
+        1
       ],
       "shift": 0,
-      "file": "cyc4.qasm"
+      "file": "ex0_x.qasm"
     },
     {
       "shape": [
         2,
-        2
+        1
       ],
-      "shift": 7,
-      "file": "cyc4.qasm"
+      "shift": 4,
+      "file": "ex0_x.qasm"
     }
   ],
   "initial_state_indexes": [
-    41
+    10
   ],
   "mode": "unitary-batched",
   "backend": "aer.stabilizer",

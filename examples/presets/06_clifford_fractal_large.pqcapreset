@@ -1,10 +1,10 @@
 {
-  "name": "06_clifford_qca_fractal",
+  "name": "06_clifford_fractal_large",
   "dimensions": 2,
   "iterations": 8,
   "system_size": [
-    4,
-    4
+    16,
+    16
   ],
   "partitions": [
     {
@@ -25,9 +25,9 @@
     }
   ],
   "initial_state_indexes": [
-    10
+    40
   ],
   "mode": "unitary-batched",
-  "backend": "ionq.simulator",
+  "backend": "aer.stabilizer",
   "shots": 128
 }

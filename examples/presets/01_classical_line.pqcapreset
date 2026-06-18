@@ -1,33 +1,33 @@
 {
-  "name": "03_classical_to_quantum",
+  "name": "01_classical_line",
   "dimensions": 2,
-  "iterations": 16,
+  "iterations": 20,
   "system_size": [
     16,
-    16
+    1
   ],
   "partitions": [
     {
       "shape": [
         2,
-        2
+        1
       ],
       "shift": 0,
-      "file": "ghz4.qasm"
+      "file": "../circuits/cx2.qasm"
     },
     {
       "shape": [
         2,
-        2
+        1
       ],
-      "shift": 5,
-      "file": "ghz4.qasm"
+      "shift": 1,
+      "file": "../circuits/cx2.qasm"
     }
   ],
   "initial_state_indexes": [
-    40
+    3
   ],
-  "mode": "unitary",
+  "mode": "unitary-batched",
   "backend": "aer.stabilizer",
   "shots": 128
 }

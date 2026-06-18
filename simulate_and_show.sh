@@ -11,15 +11,15 @@
 
 set -eu
 
-CONFIG="${1:-ex0.json}"
+CONFIG="${1:?usage: ./simulate_and_show.sh <config.pqcapreset> [fps]}"
 FPS="${2:-}"
-OUTDIR="data-candidates"
+OUTDIR="${OUTDIR:-data}"
 
-echo ">> run: $CONFIG"
-python generate-pqca-dataset.py run --config "$CONFIG"
+echo ">> run: $CONFIG (outdir: $OUTDIR)"
+python generate-pqca-dataset.py run --config "$CONFIG" --outdir "$OUTDIR"
 
 # newest dataset, excluding manifests
-DATASET=$(ls -t "$OUTDIR"/*.json 2>/dev/null | grep -v '\.manifest\.json$' | head -n1 || true)
+DATASET=$(ls -t "$OUTDIR"/*.json 2>/dev/null | grep -v '\_manifest\.json$' | head -n1 || true)
 [ -n "${DATASET:-}" ] || { echo "no dataset found in $OUTDIR/"; exit 1; }
 echo ">> dataset: $DATASET"
 
