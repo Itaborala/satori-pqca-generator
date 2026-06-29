@@ -16,6 +16,7 @@ Subcommands
     collect   Retrieve every submitted job; assemble the dataset once *all*
               steps are present and done. Reports done/pending/failed/missing.
     run       Synchronous one-shot for fast local backends (Aer).
+    cancel    Cancel any pending jobs (IonQ only).
 
 --steps selects a subset for estimate/submit:
     (omitted) or 'all'   every step 1..iterations
@@ -349,6 +350,37 @@ def collect_results(config: dict, out_dir: Path, base_dir: Path):
     print(f"Complete -- dataset written to {out}")
     return True
 
+# ------------------------------- cancel -------------------------------------
+def cancel_jobs(config: dict, steps_spec=None, out_dir: Path=None, base_dir: Path=None):
+    mpath = manifest_path(config, out_dir)
+    if not mpath.exists():
+        sys.exit(f"Manifest file not found: {mpath}. Nothing to cancel.")
+    manifest = load_json(mpath)
+
+    iterations = int(config['iterations'])
+    targets = set(parse_steps(steps_spec, iterations)) if steps_spec else None
+
+    engine = connect_engine(config)
+    cancelled, skipped = [], 0
+    for entry in manifest["jobs"]:
+        t = entry["t"]
+        if targets is not None and t not in targets:
+            continue
+        job = engine.retrieve(entry["job_id"])
+        status = job.status
+        if status in DONE or status in FAILED:
+            print(f"  t={t:>4} -> {status}; terminal, skipping")
+            skipped += 1
+            continue
+        job.cancel()
+        print(f"  cancelled t={t:>4} -> {entry['job_id']}")
+        cancelled.append(t)
+
+    manifest["jobs"] = [j for j in manifest["jobs"] if j["t"] not in cancelled]
+    write_json(mpath, manifest)
+    print(f"\ncancelled {len(cancelled)} job(s); {skipped} terminal job(s) untouched. "
+          f"manifest now has {len(manifest['jobs'])}/{iterations} steps.")
+
 
 # --------------------------------- run --------------------------------------
 def run_evolution(config: dict, out_dir: Path, base_dir: Path):
@@ -379,11 +411,11 @@ if __name__ == '__main__':
     descr = ("Generate Datasets of PQCA routines and structure the metadata for using "
              "with Satori/pqca. See more at https://pqca.cephasteom.co.uk/")
     p = argparse.ArgumentParser(description=descr)
-    p.add_argument("command", choices=['estimate', 'submit', 'collect', 'run'])
+    p.add_argument("command", choices=['estimate', 'submit', 'collect', 'run', 'cancel'])
     p.add_argument('--config', type=str, required=True,
                    help="json-formatted '<name>.pqcapreset' configuration file.")
     p.add_argument('--steps', type=str, default=None,
-                   help="estimate/submit subset: 'last', '32', '1,2,4,8', '25-32' (default: all)")
+                   help="estimate/submit/cance/cancel subset: 'last', '32', '1,2,4,8', '25-32' (default: all)")
     p.add_argument('--for', dest='for_backend', type=str, default=None,
                    help="estimate: IonQ backend to price against, e.g. qpu.forte-1")
     p.add_argument("--poll", type=int, default=0,
@@ -403,6 +435,8 @@ if __name__ == '__main__':
         submit_evolution(config, args.steps, out_dir, base_dir)
     elif args.command == 'run':
         run_evolution(config, out_dir, base_dir)
+    elif args.command == 'cancel':
+        cancel_jobs(config, args.steps, out_dir, base_dir)
     else:  # collect
         if args.poll > 0:
             while collect_results(config, out_dir, base_dir) is None:

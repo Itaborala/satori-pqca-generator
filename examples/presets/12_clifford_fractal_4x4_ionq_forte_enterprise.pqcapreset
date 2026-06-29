@@ -1,5 +1,5 @@
 {
-  "name": "clifford_fractal_4x4-hw",
+  "name": "clifford_fractal_4x4-hw-forte",
   "dimensions": 2,
   "iterations": 32,
   "system_size": [
@@ -28,7 +28,7 @@
     10
   ],
   "mode": "unitary-batched",
-  "backend": "ionq.qpu.forte-enterprise-1",
+  "backend": "ionq.qpu.forte-1",
   "shots": 32,
   "project_name": "qpattr"
 }
